@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI Personal Branding Builder: bangun bio, konten, dan latihan wawancara untuk citra profesional Anda.">
+  <title>AI Personal Branding Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#dashboard" aria-label="AI Personal Branding Builder">
+        <span class="brand-mark" aria-hidden="true">PB</span>
+        <span class="brand-name">Personal Branding Builder</span>
+      </a>
+
+      <nav class="tabs" role="tablist" aria-label="Fitur utama">
+        <button class="tab is-active" role="tab" id="tab-dashboard" data-tab="dashboard" aria-selected="true" aria-controls="panel-dashboard">Profil</button>
+        <button class="tab" role="tab" id="tab-content" data-tab="content" aria-selected="false" aria-controls="panel-content" tabindex="-1">Konten</button>
+        <button class="tab" role="tab" id="tab-interview" data-tab="interview" aria-selected="false" aria-controls="panel-interview" tabindex="-1">Wawancara</button>
+        <button class="tab" role="tab" id="tab-evaluation" data-tab="evaluation" aria-selected="false" aria-controls="panel-evaluation" tabindex="-1">Evaluasi</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+
+    <!-- 1. DASHBOARD PROFIL -->
+    <section class="panel is-active" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+      <div class="panel-intro">
+        <h1>Bangun citra profesional Anda</h1>
+        <p>Isi profil singkat, lalu biarkan AI menyusun bio yang siap dipakai di LinkedIn, CV, atau portofolio.</p>
+      </div>
+
+      <div class="grid-2">
+        <form id="profile-form" class="card" novalidate>
+          <h2>Data profil</h2>
+
+          <div class="field">
+            <label for="name">Nama lengkap</label>
+            <input type="text" id="name" name="name" placeholder="Contoh: Rina Pratama" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label for="field">Bidang keahlian</label>
+            <input type="text" id="field" name="field" placeholder="Contoh: Akuntansi dan Pendidikan" required>
+          </div>
+
+          <div class="field">
+            <label for="experience">Pengalaman</label>
+            <textarea id="experience" name="experience" rows="4" placeholder="Contoh: Magang 6 bulan di kantor akuntan publik, mengajar praktikum jurnal umum di SMK."></textarea>
+            <p class="hint">Sebutkan proyek, angka, atau hasil nyata agar bio lebih meyakinkan.</p>
+          </div>
+
+          <div class="field">
+            <label for="skills">Keunggulan (skills)</label>
+            <input type="text" id="skills" name="skills" placeholder="Pisahkan dengan koma: Excel, Analisis Data, Public Speaking">
+          </div>
+
+          <div class="field">
+            <label for="tone">Gaya bahasa bio</label>
+            <select id="tone" name="tone">
+              <option value="profesional">Profesional dan formal</option>
+              <option value="hangat">Hangat dan personal</option>
+              <option value="ringkas">Ringkas dan tegas</option>
+            </select>
+          </div>
+
+          <p class="form-error" id="profile-error" role="alert" hidden></p>
+
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-generate-bio">Generate Professional Bio</button>
+            <button type="button" class="btn btn-ghost" id="btn-save-profile">Simpan profil</button>
+          </div>
+        </form>
+
+        <div class="card result-card" aria-live="polite">
+          <div class="result-head">
+            <h2>Bio profesional</h2>
+            <button type="button" class="btn btn-small btn-ghost" id="btn-copy-bio" disabled>Salin bio</button>
+          </div>
+          <div class="loader" id="bio-loader" hidden>
+            <span class="loader-dot"></span><span class="loader-dot"></span><span class="loader-dot"></span>
+            <span class="loader-text">AI sedang menyusun bio Anda</span>
+          </div>
+          <div class="output empty" id="bio-output">Bio Anda akan muncul di sini setelah profil diisi dan tombol Generate ditekan.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. GENERATOR KONTEN -->
+    <section class="panel" id="panel-content" role="tabpanel" aria-labelledby="tab-content" hidden>
+      <div class="panel-intro">
+        <h1>Generator konten media sosial</h1>
+        <p>Pilih platform dan topik. Draft dibuat dari profil yang tersimpan.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2>Pengaturan konten</h2>
+
+          <div class="field">
+            <label for="platform">Platform</label>
+            <select id="platform">
+              <option value="linkedin">LinkedIn</option>
+              <option value="twitter">Twitter/X</option>
+              <option value="instagram">Instagram</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="topic">Topik spesifik</label>
+            <input type="text" id="topic" placeholder="Contoh: pelajaran dari praktik mengajar pertama">
+          </div>
+
+          <p class="form-error" id="content-error" role="alert" hidden></p>
+
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-generate-content">Generate Content</button>
+          </div>
+
+          <div class="result-head history-head">
+            <h3>Riwayat konten</h3>
+            <button type="button" class="btn btn-small btn-ghost" id="btn-clear-history">Hapus riwayat</button>
+          </div>
+          <ul class="history" id="history-list">
+            <li class="empty">Belum ada konten yang dibuat.</li>
+          </ul>
+        </div>
+
+        <div class="card result-card" aria-live="polite">
+          <div class="result-head">
+            <h2>Draft postingan</h2>
+            <button type="button" class="btn btn-small btn-ghost" id="btn-copy-content" disabled>Salin draft</button>
+          </div>
+          <div class="loader" id="content-loader" hidden>
+            <span class="loader-dot"></span><span class="loader-dot"></span><span class="loader-dot"></span>
+            <span class="loader-text">AI sedang menulis draft</span>
+          </div>
+          <div class="output empty" id="content-output">Draft postingan akan muncul di sini.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SIMULASI WAWANCARA -->
+    <section class="panel" id="panel-interview" role="tabpanel" aria-labelledby="tab-interview" hidden>
+      <div class="panel-intro">
+        <h1>Simulasi wawancara</h1>
+        <p>Dengarkan pertanyaan, jawab dengan suara atau ketikan, lalu terima umpan balik langsung.</p>
+      </div>
+
+      <p class="notice" id="speech-support-notice" hidden>
+        Browser ini belum mendukung pengenalan suara. Gunakan Chrome atau Edge untuk fitur suara, atau ketik jawaban Anda secara manual.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2>Pertanyaan</h2>
+          <p class="question" id="question-text" aria-live="polite">Tekan "Mulai wawancara" untuk mendapat pertanyaan pertama.</p>
+          <p class="hint" id="question-counter"></p>
+
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-next-question">Mulai wawancara</button>
+            <button type="button" class="btn btn-ghost" id="btn-speak-question" disabled>Bacakan lagi</button>
+          </div>
+
+          <h3>Jawaban Anda</h3>
+          <textarea id="transcript" rows="6" placeholder="Jawaban dari suara akan tampil di sini. Anda juga bisa mengetik atau mengedit langsung."></textarea>
+          <p class="speech-status" id="speech-status" role="status">Mikrofon siap.</p>
+
+          <div class="actions">
+            <button type="button" class="btn btn-record" id="btn-record" aria-pressed="false">Mulai merekam</button>
+            <button type="button" class="btn btn-primary" id="btn-submit-answer" disabled>Kirim jawaban</button>
+          </div>
+        </div>
+
+        <div class="card result-card" aria-live="polite">
+          <h2>Umpan balik</h2>
+          <div class="output empty" id="feedback-output">Umpan balik atas jawaban Anda akan muncul di sini.</div>
+
+          <h3>Riwayat sesi</h3>
+          <ul class="history" id="interview-log">
+            <li class="empty">Belum ada jawaban yang dikirim.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EVALUASI -->
+    <section class="panel" id="panel-evaluation" role="tabpanel" aria-labelledby="tab-evaluation" hidden>
+      <div class="panel-intro">
+        <h1>Evaluasi personal branding</h1>
+        <p>Skor dihitung dari profil, bio, riwayat konten, dan latihan wawancara Anda.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card score-card">
+          <div class="score-ring" id="score-ring" style="--score: 0" role="img" aria-label="Skor personal branding">
+            <div class="score-inner">
+              <span class="score-value" id="score-value">0</span>
+              <span class="score-max">dari 100</span>
+            </div>
+          </div>
+          <p class="score-label" id="score-label">Belum dievaluasi</p>
+          <button type="button" class="btn btn-primary" id="btn-evaluate">Evaluasi sekarang</button>
+        </div>
+
+        <div class="card" aria-live="polite">
+          <h2>Rincian skor</h2>
+          <ul class="breakdown" id="score-breakdown">
+            <li class="empty">Tekan tombol evaluasi untuk melihat rincian.</li>
+          </ul>
+
+          <h2>Rekomendasi</h2>
+          <ul class="recommendations" id="recommendations">
+            <li class="empty">Rekomendasi akan muncul setelah evaluasi.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Data tersimpan di browser Anda (LocalStorage) dan tidak dikirim ke server mana pun.</p>
+      <button type="button" class="btn btn-small btn-ghost" id="btn-reset-all">Hapus semua data</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
